@@ -5,4 +5,6 @@ using UnityEngine;
 public static class Constants
 {
 public static readonly float MAX_ANGLE = 360f;
+public static readonly float ANGLE_CORRECTION = 90f;
+
 }

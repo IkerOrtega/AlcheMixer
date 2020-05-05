@@ -4,67 +4,57 @@ using UnityEngine;
 
 public class SpoonController : MonoBehaviour
 {
-    public GameObject ingredientPrefab;
-    public float ingRadius = 0.5f;
-
+    #region Variables
     private GameController _gc;
 
     private Vector2 direction;
-    private List<GameObject> ingList;
     private int sectionSelected = 0;
+    private Vector2 oldMousePos;
 
 
-
-
+    #endregion
+    #region Unity Functions
 
     private void Awake()
     {
         _gc = GameObject.FindWithTag("GameController").GetComponent<GameController>();
-        ingList = new List<GameObject>();
+
     }
     // Start is called before the first frame update
     void Start()
     {
-        if (ingredientPrefab != null)
-        {
-            for (int i = 0; i < _gc.NUM_SECTIONS; i++)
-            {
-                Quaternion rotation = Quaternion.AngleAxis(_gc.ANGLE_STEP * i, Vector3.forward);
-                Vector3 direction = rotation * Vector2.right;
-                Vector3 position = transform.position + (direction * ingRadius);
-                ingList.Add(Instantiate(ingredientPrefab, position, rotation));
-            }
-           
-        }
+        oldMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
-        // TODO: Not snapping correctly to diagonals.
-        // TODO Get input from mouse.
+
+
+
+        //If input from keyboard or joystick  
         if (horizontalInput != 0 || verticalInput != 0)
         {
-            float tempRotation = Mathf.Atan2(verticalInput, horizontalInput) * Mathf.Rad2Deg;
-            if(tempRotation < 0f) {
-                tempRotation = Constants.MAX_ANGLE + tempRotation;
-            }
-            //Snap to nearest ANGLE_STEP
-            
-            sectionSelected = Mathf.RoundToInt(tempRotation / _gc.ANGLE_STEP);
-
-            // Debug.Log("Direction: (" + horizontalInput + ", " + verticalInput + ")");
-            
-            transform.rotation = Quaternion.AngleAxis(_gc.ANGLE_STEP * sectionSelected, Vector3.forward);
-            Debug.Log("Section Selected: " + sectionSelected);
-            Debug.Log("Rotation: " + _gc.ANGLE_STEP * sectionSelected);
+            setSpoonSectionSelected(getAngleDegreesFromInput(horizontalInput, verticalInput));
         }
-
-       
-
+        // else input from mouse
+        else
+        {
+            // Mouse returns postion in pixels, needs to be translated to World units.
+            Vector2 newMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            // Point to mouse only when it moves
+            if (!newMousePos.Equals(oldMousePos))
+            {
+                oldMousePos = newMousePos;
+                Vector2 spoonPos = transform.position;
+                //Point spoon top to mouse by creating vector from spoon center to mouse.
+                 transform.up = newMousePos - spoonPos;
+                setSpoonSectionSelected(transform.rotation.eulerAngles.z);
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -75,10 +65,43 @@ public class SpoonController : MonoBehaviour
 
     private void LateUpdate()
     {
-        for (int i = 0; i < ingList.Count; i++)
+        for (int i = 0; i < _gc.ingList.Count; i++)
         {
-            ingList[i].GetComponent<SpriteRenderer>().color = (i == sectionSelected ? Color.yellow : Color.white);
+            _gc.ingList[i].GetComponent<SpriteRenderer>().color = (i == sectionSelected ? Color.yellow : Color.black);
         }
 
     }
+    #endregion
+    #region Utilities
+
+    private void setSpoonSectionSelected(float inputAngle)
+    {
+        // Calculate section we're in
+        sectionSelected = Mathf.RoundToInt(inputAngle / _gc.ANGLE_STEP);
+        //Snap to nearest ANGLE_STEP
+        float snappedAngle = _gc.ANGLE_STEP * sectionSelected;
+        // Set rotation of Spoon
+        transform.rotation = Quaternion.AngleAxis(snappedAngle, Vector3.forward);
+        //Debug.Log("Real Angle: " + inputAngle + "\nSnapped Angle: " + snappedAngle + "\nsectionSelected: " + sectionSelected);
+
+    }
+
+    /// <summary>
+    /// Returns the angle of the battle circle in Degrees for the joystick/keyboard Input x,y.   	
+    /// </summary>
+    /// <param name="x">Input horizontal</param>
+    /// <param name="y">Input vertical</param>
+    private float getAngleDegreesFromInput(float x, float y)
+    {
+        float angle = Mathf.Atan2(y, x) * Mathf.Rad2Deg - Constants.ANGLE_CORRECTION;
+        if (angle < 0f)
+        {
+            angle = Constants.MAX_ANGLE + angle;
+        }
+
+        return angle;
+    }
+
+   
+    #endregion
 }

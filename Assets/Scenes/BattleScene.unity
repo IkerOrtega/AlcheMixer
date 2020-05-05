@@ -314,9 +314,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2620e0bc926098489eccab32c556b61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initial_sections: 6
+  initial_sections: 8
+  ingRadius: 0.5
+  spoon: {fileID: 1200497760}
+  ingredientPrefab: {fileID: 7143149529711675688, guid: cee597b14ad3d974ea3a184463c8a8cc,
+    type: 3}
   ANGLE_STEP: 45
   NUM_SECTIONS: 8
+  ingList: []
 --- !u!4 &690353169
 Transform:
   m_ObjectHideFlags: 0
@@ -361,9 +366,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ea189cfb0000314093106a7f6e90e0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ingredientPrefab: {fileID: 7143149529711675688, guid: cee597b14ad3d974ea3a184463c8a8cc,
-    type: 3}
-  ingRadius: 0.5
 --- !u!212 &1200497762
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -403,7 +405,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1465765673848044041, guid: 19f4b7714754cb4499fe9dd9499a1d22,
+  m_Sprite: {fileID: -1465765673848044041, guid: d76deabc576e1f54984453f984300f60,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
