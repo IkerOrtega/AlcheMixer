@@ -33,8 +33,6 @@ public class SpoonController : MonoBehaviour
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
 
-
-
         //If input from keyboard or joystick  
         if (horizontalInput != 0 || verticalInput != 0)
         {

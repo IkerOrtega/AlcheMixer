@@ -174,7 +174,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 1
+  orthographic size: 1.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -315,7 +315,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initial_sections: 8
-  ingRadius: 0.5
+  ingRadius: 1
+  maxLineDistance: 1.81
+  minLineDistance: 0.5
+  innerCircleDistance: 0.9
+  circleRadiusList:
+  - 0.9
+  - 1.2
   spoon: {fileID: 1200497760}
   ingredientPrefab: {fileID: 7143149529711675688, guid: cee597b14ad3d974ea3a184463c8a8cc,
     type: 3}
@@ -424,10 +430,10 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1200497760}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.062, y: 0.039, z: 0}
+  m_LocalRotation: {x: -0, y: -0.014126029, z: -0, w: 0.9999003}
+  m_LocalPosition: {x: 0.062, y: 0.039, z: 2.1048764e-10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -1.6190001, z: 0}
