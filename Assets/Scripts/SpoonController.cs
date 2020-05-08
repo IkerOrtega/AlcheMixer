@@ -63,10 +63,7 @@ public class SpoonController : MonoBehaviour
 
     private void LateUpdate()
     {
-        for (int i = 0; i < _gc.ingList.Count; i++)
-        {
-            _gc.ingList[i].GetComponent<SpriteRenderer>().color = (i == sectionSelected ? Color.yellow : Color.black);
-        }
+        
 
     }
     #endregion
@@ -91,10 +88,10 @@ public class SpoonController : MonoBehaviour
     /// <param name="y">Input vertical</param>
     private float getAngleDegreesFromInput(float x, float y)
     {
-        float angle = Mathf.Atan2(y, x) * Mathf.Rad2Deg - Constants.ANGLE_CORRECTION;
+        float angle = Mathf.Atan2(y, x) * Mathf.Rad2Deg - Constants.ANGLES.ANGLE_CORRECTION;
         if (angle < 0f)
         {
-            angle = Constants.MAX_ANGLE + angle;
+            angle = Constants.ANGLES.MAX_ANGLE + angle;
         }
 
         return angle;

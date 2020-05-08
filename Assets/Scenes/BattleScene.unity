@@ -174,7 +174,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 1.5
+  orthographic size: 2
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -314,19 +314,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2620e0bc926098489eccab32c556b61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initial_sections: 8
-  ingRadius: 1
-  maxLineDistance: 1.81
-  minLineDistance: 0.5
-  innerCircleDistance: 0.9
-  circleRadiusList:
-  - 0.9
-  - 1.2
+  ingredientLayer: 3
+  sections: 8
+  layers: 3
+  separationBetweenLayers: 0.3
+  initialLayerDistance: 0.7
+  layerSeparationGrowth: 0.1
   spoon: {fileID: 1200497760}
   ingredientPrefab: {fileID: 7143149529711675688, guid: cee597b14ad3d974ea3a184463c8a8cc,
     type: 3}
   ANGLE_STEP: 45
-  NUM_SECTIONS: 8
   ingList: []
 --- !u!4 &690353169
 Transform:
